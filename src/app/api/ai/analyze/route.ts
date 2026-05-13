@@ -51,7 +51,7 @@ export async function POST(req: Request) {
           content: prompt,
         },
       ],
-      model: "llama-3.3-70b-specdec", // Modelo potente y rápido
+      model: "llama-3.3-70b-versatile", // Modelo actualizado (specdec fue retirado)
       response_format: { type: "json_object" },
     });
 
