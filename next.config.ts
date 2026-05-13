@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ["@iden3/js-iden3-auth", "ffjavascript"],
 };
 
 export default nextConfig;

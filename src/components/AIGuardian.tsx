@@ -26,13 +26,17 @@ export default function AIGuardian({ specialty, requestedData, isVisible, aiResu
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className={`relative overflow-hidden p-8 rounded-[40px] border-2 shadow-2xl glass transition-colors duration-500 ${
+          className={`relative overflow-hidden p-8 rounded-[40px] border-2 shadow-2xl transition-colors duration-500 ${
             isLoading 
-            ? "border-cobalt/30 bg-cobalt/5"
+            ? "border-blue-600/30"
             : isSuspicious 
-              ? "border-red-500/30 bg-red-500/5" 
-              : "border-neon-green/30 bg-neon-green/5"
+              ? "border-red-500/30" 
+              : "border-green-500/30"
           }`}
+          style={{ 
+            backgroundColor: isLoading ? "var(--background)" : isSuspicious ? "var(--background)" : "var(--background)",
+            boxShadow: "0 10px 40px -10px rgba(0,0,0,0.05)"
+          }}
         >
           {/* Decorative scanner effect */}
           {!isLoading && (
@@ -70,12 +74,18 @@ export default function AIGuardian({ specialty, requestedData, isVisible, aiResu
                     : isSuspicious ? "Alerta de Privacidad Crítica" : "Análisis de Coherencia IA"}
                 </h3>
                 <div className="flex items-center gap-2">
-                   <Activity className={`w-4 h-4 ${isSuspicious ? "text-red-400" : "text-neon-green"} animate-pulse`} />
-                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Live Guard</span>
+                   <Activity className={`w-4 h-4 ${isSuspicious ? "text-red-400" : "text-green-500"} animate-pulse`} />
+                   <span 
+                     className="text-[10px] font-black uppercase tracking-widest"
+                     style={{ color: "var(--text-muted)" }}
+                   >Live Guard</span>
                 </div>
               </div>
 
-              <p className={`text-lg leading-relaxed ${isSuspicious ? "text-red-200/80" : "text-slate-300"}`}>
+              <p 
+                className="text-lg leading-relaxed"
+                style={{ color: isSuspicious ? "var(--text-main)" : "var(--text-muted)" }}
+              >
                 {isLoading 
                   ? "SANA AI está evaluando la solicitud médica en tiempo real para garantizar tu soberanía de datos..."
                   : aiResult?.reason || "Análisis completado. Los datos solicitados son consistentes con el perfil profesional del médico."}
@@ -85,35 +95,63 @@ export default function AIGuardian({ specialty, requestedData, isVisible, aiResu
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 p-4 rounded-2xl bg-white/5 border border-white/10 flex gap-3 items-center"
+                  className="mt-4 p-4 rounded-2xl border flex gap-3 items-center"
+                  style={{ backgroundColor: "var(--background)", borderColor: "var(--border-subtle)" }}
                 >
-                  <FileText className="w-5 h-5 text-cobalt-light" />
+                  <FileText className="w-5 h-5 text-blue-600" />
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Resumen para Médico</span>
-                    <p className="text-sm italic text-slate-400">"{aiResult.medicalSummary}"</p>
+                    <span 
+                      className="text-[10px] font-black uppercase tracking-widest block"
+                      style={{ color: "var(--text-muted)" }}
+                    >Resumen para Médico</span>
+                    <p 
+                      className="text-sm italic"
+                      style={{ color: "var(--text-main)" }}
+                    >"{aiResult.medicalSummary}"</p>
                   </div>
                 </motion.div>
               )}
 
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <div className="p-3 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="text-[8px] font-black uppercase tracking-widest text-slate-500 mb-1">Coherence Score</div>
+                <div 
+                  className="p-3 rounded-2xl border"
+                  style={{ backgroundColor: "var(--background)", borderColor: "var(--border-subtle)" }}
+                >
+                  <div 
+                    className="text-[8px] font-black uppercase tracking-widest mb-1"
+                    style={{ color: "var(--text-muted)" }}
+                  >Coherence Score</div>
                   <div className="flex items-center gap-2">
-                    <div className="flex-grow h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <div 
+                      className="flex-grow h-1.5 rounded-full overflow-hidden"
+                      style={{ backgroundColor: "var(--border-subtle)" }}
+                    >
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${aiResult?.coherenceScore || 0}%` }}
-                        className={`h-full ${isSuspicious ? "bg-red-500" : "bg-neon-green"}`}
+                        className={`h-full ${isSuspicious ? "bg-red-500" : "bg-green-500"}`}
                       />
                     </div>
-                    <span className="text-[10px] font-bold text-white uppercase">{aiResult?.coherenceScore || 0}%</span>
+                    <span 
+                      className="text-[10px] font-bold uppercase"
+                      style={{ color: "var(--text-main)" }}
+                    >{aiResult?.coherenceScore || 0}%</span>
                   </div>
                 </div>
-                <div className="p-3 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="text-[8px] font-black uppercase tracking-widest text-slate-500 mb-1">Privacy Proof</div>
+                <div 
+                  className="p-3 rounded-2xl border"
+                  style={{ backgroundColor: "var(--background)", borderColor: "var(--border-subtle)" }}
+                >
+                  <div 
+                    className="text-[8px] font-black uppercase tracking-widest mb-1"
+                    style={{ color: "var(--text-muted)" }}
+                  >Privacy Proof</div>
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className={`w-3 h-3 ${isSuspicious ? "text-red-400" : "text-neon-green"}`} />
-                    <span className="text-[10px] font-bold text-white uppercase">Valid & Sovereign</span>
+                    <ShieldCheck className={`w-3 h-3 ${isSuspicious ? "text-red-400" : "text-green-500"}`} />
+                    <span 
+                      className="text-[10px] font-bold uppercase"
+                      style={{ color: "var(--text-main)" }}
+                    >Valid & Sovereign</span>
                   </div>
                 </div>
               </div>
@@ -123,7 +161,10 @@ export default function AIGuardian({ specialty, requestedData, isVisible, aiResu
                   <button className="bg-red-600 text-white px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-red-700 transition-colors shadow-lg shadow-red-900/40">
                     Bloquear Acceso
                   </button>
-                  <button className="bg-white/5 border border-white/10 text-white px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-colors backdrop-blur-sm">
+                  <button 
+                    className="border px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-colors backdrop-blur-sm"
+                    style={{ backgroundColor: "var(--hero-card)", borderColor: "var(--border-subtle)", color: "var(--text-main)" }}
+                  >
                     Ver Protocolo
                   </button>
                 </div>
@@ -133,8 +174,11 @@ export default function AIGuardian({ specialty, requestedData, isVisible, aiResu
 
           {/* Neural link decoration */}
           <div className="absolute bottom-4 right-8 flex items-center gap-2 opacity-20">
-             <Cpu className="w-4 h-4 text-white" />
-             <span className="text-[8px] font-black uppercase tracking-widest text-white">Neural Guardian v4.5</span>
+             <Cpu className="w-4 h-4" style={{ color: "var(--text-main)" }} />
+             <span 
+               className="text-[8px] font-black uppercase tracking-widest"
+               style={{ color: "var(--text-main)" }}
+             >Neural Guardian v4.5</span>
           </div>
         </motion.div>
       )}

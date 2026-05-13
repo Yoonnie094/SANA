@@ -1,125 +1,111 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Zap, Lock, Database, Shield, Activity, Fingerprint } from "lucide-react";
+import { ShieldCheck, Zap, Globe, Fingerprint, BrainCircuit, Database, Lock } from "lucide-react";
 
-const features = [
+const bentoFeatures = [
   {
-    title: "IA Guardián",
-    description: "Algoritmos avanzados que validan la coherencia de cada solicitud de datos médicos en tiempo real.",
-    icon: <Zap className="w-8 h-8 text-neon-green" />,
-    className: "md:col-span-2 md:row-span-2 bg-gradient-to-br from-white/5 to-transparent",
-    image: "/feature-ia.png" // Placeholder for visual reference
+    title: "IA Guardián Predictivo",
+    description: "Análisis en tiempo real con Llama 3 para detectar anomalías y asegurar la coherencia clínica en milisegundos.",
+    icon: BrainCircuit,
+    color: "text-purple-500",
+    size: "lg",
+    bg: "bg-purple-500/5",
   },
   {
-    title: "Registro Inmutable",
-    description: "Cada acceso queda grabado para siempre en la blockchain de SANA.",
-    icon: <Lock className="w-8 h-8 text-cobalt" />,
-    className: "md:col-span-1 md:row-span-1 bg-white/5",
+    title: "Soberanía IPFS",
+    description: "Almacenamiento descentralizado e inmutable.",
+    icon: Database,
+    color: "text-blue-500",
+    size: "md",
+    bg: "bg-blue-500/5",
   },
   {
-    title: "Soberanía Total",
-    description: "Tú decides quién ve qué, cuándo y por qué. Sin intermediarios.",
-    icon: <Fingerprint className="w-8 h-8 text-white/50" />,
-    className: "md:col-span-1 md:row-span-2 bg-cobalt/10 border-cobalt/20",
+    title: "WebAuthn Biometry",
+    description: "Verificación física integrada on-chain.",
+    icon: Fingerprint,
+    color: "text-emerald-500",
+    size: "md",
+    bg: "bg-emerald-500/5",
   },
   {
-    title: "Datos Fragmentados",
-    description: "Tu historial médico está encriptado y distribuido, eliminando puntos únicos de fallo.",
-    icon: <Database className="w-8 h-8 text-slate-400" />,
-    className: "md:col-span-1 md:row-span-1 bg-white/5",
+    title: "Zero Knowledge Proofs",
+    description: "Verifica identidades médicas sin revelar información privada mediante protocolos ZKP.",
+    icon: ShieldCheck,
+    color: "text-cobalt",
+    size: "lg",
+    bg: "bg-cobalt/5",
   },
   {
-    title: "Auditoría Real-Time",
-    description: "Monitorea quién está consultando tu información desde cualquier dispositivo.",
-    icon: <Activity className="w-8 h-8 text-neon-green/50" />,
-    className: "md:col-span-2 md:row-span-1 bg-white/5",
+    title: "Global Link",
+    description: "Acceso universal seguro.",
+    icon: Globe,
+    color: "text-cyan-500",
+    size: "md",
+    bg: "bg-cyan-500/5",
   }
 ];
 
 export default function Features() {
   return (
-    <section id="vault" className="py-32 px-6 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-20">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter"
+    <section className="py-24 px-6 relative" id="features">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16 space-y-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.5 }}
+            className="text-[9px] font-black uppercase tracking-[0.6em] text-blue-600 dark:text-blue-400"
           >
-            La infraestructura de la <br />
-            <span className="text-cobalt">confianza digital.</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-slate-400 max-w-2xl mx-auto"
+            Capabilities & Performance
+          </motion.div>
+          <h2 
+            className="text-4xl md:text-5xl font-black tracking-tighter leading-tight"
+            style={{ color: "var(--text-main)" }}
           >
-            Combinamos inteligencia artificial con descentralización para crear la capa de seguridad definitiva para el sector salud.
-          </motion.p>
+            Diseñado para ser <br /> <span className="text-gradient">impenetrable.</span>
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[280px]">
-          {features.map((feature, i) => (
+        <div className="flex flex-wrap gap-6 justify-center">
+          {bentoFeatures.map((feature, index) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className={`group p-8 rounded-[32px] border border-white/10 glass flex flex-col justify-between overflow-hidden relative ${feature.className}`}
+              transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-50px" }}
+              className={`w-full ${feature.size === 'lg' ? 'md:w-[calc(60%-12px)]' : 'md:w-[calc(40%-12px)]'}`}
             >
-              {/* Background Decorative Elements */}
-              <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/[0.02] blur-3xl rounded-full transition-opacity opacity-0 group-hover:opacity-100" />
-              <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-cobalt/10 blur-3xl rounded-full" />
-              
-              <div className="relative z-10 h-full flex flex-col">
-                <div className="mb-6 p-4 w-fit rounded-2xl bg-white/5 border border-white/5 group-hover:scale-110 group-hover:border-neon-green/30 transition-all duration-500">
-                  {feature.icon}
-                </div>
-                <h3 className="text-3xl font-black text-white mb-4 tracking-tight group-hover:text-neon-green transition-colors">{feature.title}</h3>
-                <p className="text-slate-400 leading-relaxed font-medium text-lg max-w-[90%] mb-6">{feature.description}</p>
+              <div 
+                className={`p-10 rounded-[3rem] relative overflow-hidden group transition-all duration-500 h-full w-full hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between`}
+                style={{ backgroundColor: "var(--hero-card)", border: "1px solid var(--border-subtle)", boxShadow: "0 10px 40px -10px rgba(0,0,0,0.05)" }}
+              >
+                <div className={`absolute -top-10 -right-10 w-32 h-32 blur-[60px] rounded-full transition-opacity opacity-0 group-hover:opacity-40 ${feature.bg}`} />
                 
-                {/* Extra visual for the large card: Mock Status List */}
-                {feature.className.includes("md:col-span-2") && (
-                  <div className="mt-auto space-y-3 opacity-40 group-hover:opacity-100 transition-all duration-700">
-                    {[
-                      { label: "Neural Validation", status: "Active" },
-                      { label: "Coherence Check", status: "Verified" },
-                      { label: "Pattern Analysis", status: "Running" }
-                    ].map((item, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{item.label}</span>
-                        <span className="text-[10px] font-black text-neon-green uppercase">{item.status}</span>
-                      </div>
-                    ))}
+                <div className="space-y-8 relative z-10">
+                  <div className={`w-14 h-14 rounded-2xl ${feature.bg} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                    <feature.icon className={`w-7 h-7 ${feature.color}`} />
                   </div>
-                )}
-                {/* Card Footer Decor for small cards */}
-
-                {!feature.className.includes("md:col-span-2") && (
-                  <div className="mt-auto pt-4 flex items-center gap-2 opacity-30 group-hover:opacity-100 transition-opacity">
-                    <div className="h-[1px] flex-grow bg-gradient-to-r from-white/20 to-transparent" />
-                    <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40">Secure Node</span>
+                  
+                  <div className="space-y-3">
+                    <h3 
+                      className="text-2xl font-black tracking-tight"
+                      style={{ color: "var(--text-main)" }}
+                    >
+                      {feature.title}
+                    </h3>
+                    <p 
+                      className="text-sm font-medium leading-relaxed"
+                      style={{ color: "var(--text-muted)" }}
+                    >
+                      {feature.description}
+                    </p>
                   </div>
-                )}
-              </div>
-
-              {/* Card Decor Background */}
-              {feature.className.includes("md:col-span-2") && (
-                <div className="absolute top-1/2 right-10 -translate-y-1/2 opacity-[0.03] group-hover:opacity-10 transition-opacity pointer-events-none">
-                   <Shield className="w-64 h-64 text-white" />
                 </div>
-              )}
-
+              </div>
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );

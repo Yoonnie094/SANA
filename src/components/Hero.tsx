@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Shield, ArrowRight, Smartphone, Lock, Cpu } from "lucide-react";
+import { Shield, ArrowRight, Smartphone, Lock, Zap } from "lucide-react";
 import { useAccount } from "wagmi";
 import { useModal } from "connectkit";
 import { useRouter } from "next/navigation";
@@ -10,140 +11,159 @@ export default function Hero() {
   const { isConnected } = useAccount();
   const { setOpen } = useModal();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleDashboardClick = () => {
-    if (isConnected) {
-      router.push("/dashboard");
-    } else {
-      setOpen(true);
-    }
+    if (isConnected) router.push("/dashboard");
+    else setOpen(true);
   };
 
   return (
-    <section className="relative pt-40 pb-32 px-6 overflow-hidden">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-[radial-gradient(circle_at_center,rgba(0,71,171,0.15)_0%,transparent_70%)] -z-10" />
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-cobalt/10 blur-[120px] rounded-full -z-10 animate-pulse-slow" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-neon-green/5 blur-[100px] rounded-full -z-10" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-left">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-neon-green px-4 py-2 rounded-full text-sm font-bold mb-8 neon-glow"
-            >
-              <Cpu className="w-4 h-4" />
-              <span className="tracking-wider uppercase text-[10px]">AI-Powered Privacy Layer</span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9] text-white"
-            >
-              Tu salud, <br />
-              <span className="text-cobalt">tu soberanía.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-xl text-slate-400 max-w-xl mb-12 leading-relaxed"
-            >
-              Protege tus datos médicos frente a filtraciones masivas. SANA es la bóveda digital que devuelve el control total al paciente mediante IA Guardián y registros inmutables.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-col sm:flex-row items-center gap-6"
-            >
-              <button 
-                onClick={handleDashboardClick}
-                className="bg-cobalt text-white px-10 py-5 rounded-2xl font-black text-lg cobalt-glow hover:scale-105 transition-all flex items-center gap-3 group relative overflow-hidden"
+    <section 
+      className="relative min-h-screen flex items-center pt-32 pb-20 px-6 transition-colors duration-1000"
+      style={{ backgroundColor: "var(--hero-bg)" }}
+    >
+      {/* Luces de fondo suaves */}
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-400/10 dark:bg-cobalt/20 blur-[120px] rounded-full transition-colors duration-1000" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-400/10 dark:bg-cyber-purple/20 blur-[100px] rounded-full transition-colors duration-1000" />
+      
+      {mounted && (
+        <div className="max-w-6xl mx-auto w-full relative z-10">
+          <div className="grid lg:grid-cols-2 gap-24 items-center">
+            <div className="space-y-12">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-slate-700 text-blue-600 dark:text-blue-400 shadow-sm transition-colors duration-500"
               >
-                <span className="relative z-10">
-                  {isConnected ? "Ir al Dashboard" : "Explorar Dashboard"}
-                </span>
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10" />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              </button>
+                <div className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-[0.4em]">Neural Health Protocol 1.0</span>
+              </motion.div>
 
-              <button className="bg-white/5 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-lg hover:bg-white/10 transition-all flex items-center gap-3 backdrop-blur-sm">
-                <Smartphone className="w-6 h-6 text-neon-green" />
-                Download App
-              </button>
-            </motion.div>
-          </div>
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-7xl md:text-8xl font-black tracking-tighter leading-[0.9] transition-colors duration-500"
+                style={{ color: "var(--text-main)" }}
+              >
+                Tu salud, <br />
+                <span className="text-gradient">soberana.</span>
+              </motion.h1>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotateY: 20 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="relative perspective-1000 hidden lg:block"
-          >
-            <div className="relative animate-float">
-              {/* Main Vault UI Mockup */}
-              <div className="glass p-8 rounded-[40px] border-white/10 shadow-2xl relative z-10">
-                <div className="flex items-center justify-between mb-12">
-                  <div className="w-12 h-12 bg-cobalt rounded-2xl flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-white" />
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-xl max-w-xl leading-relaxed font-medium transition-colors duration-500"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Protección de ADN digital con Inteligencia Artificial y Web3.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex flex-col sm:flex-row gap-6 pt-4"
+              >
+                <button 
+                  onClick={handleDashboardClick}
+                  className="group px-12 py-6 rounded-[2.5rem] font-black text-xl hover:scale-105 transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-4"
+                  style={{ backgroundColor: "var(--btn-bg)", color: "var(--btn-text)" }}
+                >
+                  {isConnected ? "Mi Dashboard" : "Empezar Ahora"}
+                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                </button>
+                
+                <button 
+                  className="px-10 py-6 rounded-[2.5rem] border font-black text-lg transition-all flex items-center justify-center gap-3 shadow-sm"
+                  style={{ backgroundColor: "var(--hero-card)", borderColor: "var(--border-subtle)", color: "var(--text-main)" }}
+                >
+                  <Smartphone className="w-6 h-6 text-blue-600 dark:text-cyan-400" />
+                  SANA App
+                </button>
+              </motion.div>
+
+              <div className="flex gap-12">
+                 <div className="flex items-center gap-3 opacity-60">
+                   <Zap className="w-5 h-5 text-blue-600 dark:text-green-400" />
+                   <span 
+                     className="text-[10px] font-black uppercase tracking-widest"
+                     style={{ color: "var(--text-main)" }}
+                   >Secure Sign</span>
+                 </div>
+                 <div className="flex items-center gap-3 opacity-60">
+                   <Lock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                   <span 
+                     className="text-[10px] font-black uppercase tracking-widest"
+                     style={{ color: "var(--text-main)" }}
+                   >ZK-Identity</span>
+                 </div>
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="hidden lg:block relative"
+            >
+              <div 
+                className="p-14 rounded-[4rem] shadow-2xl border relative overflow-hidden transition-colors duration-500"
+                style={{ backgroundColor: "var(--hero-card)", borderColor: "var(--border-subtle)" }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 dark:from-blue-500/5 to-transparent" />
+                
+                <div className="flex justify-between items-start mb-20 relative">
+                  <div className="w-20 h-20 bg-blue-600 dark:bg-gradient-to-br dark:from-cobalt dark:to-cyber-purple rounded-3xl flex items-center justify-center shadow-xl shadow-blue-600/20">
+                    <Shield className="w-10 h-10 text-white" />
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em]">Security Status</p>
-                    <p className="text-neon-green font-black text-lg uppercase tracking-tighter">Active Protection</p>
+                    <p 
+                      className="text-[10px] font-black opacity-40 uppercase tracking-[0.4em]"
+                      style={{ color: "var(--text-main)" }}
+                    >Health Network</p>
+                    <p className="text-4xl font-black text-blue-600 dark:text-green-400 tracking-tighter">SECURED</p>
                   </div>
                 </div>
 
-                <div className="space-y-6">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="h-4 bg-white/5 rounded-full w-full overflow-hidden">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${Math.random() * 60 + 30}%` }}
-                        transition={{ delay: 1 + i * 0.2, duration: 1.5 }}
-                        className="h-full bg-gradient-to-r from-cobalt to-cobalt-light"
-                      />
+                <div className="space-y-10 relative">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="space-y-4">
+                      <div 
+                        className="flex justify-between text-[10px] font-black uppercase tracking-widest opacity-60"
+                        style={{ color: "var(--text-main)" }}
+                      >
+                        <span>Neural Layer {i}</span>
+                        <span className={i === 1 ? "text-blue-600 dark:text-green-400" : i === 2 ? "text-blue-600 dark:text-purple-400" : "text-blue-600 dark:text-cyan-400"}>Active</span>
+                      </div>
+                      <div className="h-3 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          animate={{ width: `${60 + i * 10}%` }}
+                          transition={{ delay: 0.5 + i * 0.2, duration: 1.5 }}
+                          className={`h-full ${i === 1 ? "bg-blue-600 dark:bg-green-400" : i === 2 ? "bg-blue-600 dark:bg-purple-400" : "bg-blue-600 dark:bg-cyan-400"}`}
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-12 p-6 bg-slate-950/50 rounded-3xl border border-white/5">
-                   <div className="flex items-center gap-3 mb-4">
-                     <div className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
-                     <span className="text-xs font-bold text-slate-400 uppercase">Guardian Neural Link</span>
-                   </div>
-                   <div className="flex justify-between items-end">
-                      <div className="text-2xl font-black text-white">99.9%</div>
-                      <div className="text-[10px] text-neon-green font-bold uppercase tracking-widest">Coherence Rate</div>
-                   </div>
+                <div className="mt-20 p-8 rounded-[2.5rem] bg-blue-50/50 dark:bg-slate-800/50 border border-blue-100 dark:border-slate-700 flex items-center justify-between transition-colors duration-500">
+                  <div className="flex items-center gap-4">
+                    <div className="w-3 h-3 rounded-full bg-blue-600 dark:bg-cyan-400 shadow-[0_0_15px_rgba(37,99,235,0.4)]" />
+                    <span 
+                      className="text-xs font-black uppercase tracking-[0.2em] opacity-80"
+                      style={{ color: "var(--text-main)" }}
+                    >Neural Link Active</span>
+                  </div>
                 </div>
               </div>
-
-              {/* Floating Cards */}
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="absolute -top-10 -right-10 glass p-5 rounded-2xl border-neon-green/20 z-20 shadow-xl"
-              >
-                <Lock className="w-6 h-6 text-neon-green" />
-              </motion.div>
-              <motion.div 
-                animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                className="absolute -bottom-10 -left-10 glass p-5 rounded-2xl border-cobalt/20 z-20 shadow-xl"
-              >
-                <div className="w-6 h-6 rounded-full bg-cobalt" />
-              </motion.div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

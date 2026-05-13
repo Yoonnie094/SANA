@@ -1,48 +1,53 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ConnectKitButton } from "connectkit";
 import { Shield } from "lucide-react";
+import { ConnectKitButton } from "connectkit";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 w-full z-50 px-6 py-4">
-      <div className="max-w-7xl mx-auto glass rounded-2xl px-6 py-3 flex items-center justify-between border-white/5">
-        <Link href="/" className="flex items-center gap-2 group">
-          <Shield className="w-8 h-8 text-cobalt group-hover:text-neon-green transition-all duration-500" />
-          <span className="text-2xl font-black tracking-tighter text-white">
+    <nav className="fixed top-0 w-full z-50 px-6 py-6">
+      <div 
+        className="max-w-6xl mx-auto backdrop-blur-md rounded-3xl px-8 py-4 flex items-center justify-between transition-colors duration-500 shadow-xl shadow-blue-500/5"
+        style={{ backgroundColor: "var(--nav-bg)", borderColor: "var(--border-subtle)", borderWidth: "1px" }}
+      >
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+            <Shield className="w-6 h-6 text-white" />
+          </div>
+          <span 
+            className="text-2xl font-black tracking-tighter transition-colors duration-500"
+            style={{ color: "var(--text-main)" }}
+          >
             SANA
           </span>
         </Link>
         
-        <div className="hidden md:flex items-center gap-8 font-bold text-slate-400">
-          <Link href="/" className="hover:text-white transition-colors">Inicio</Link>
-          <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard Médico</Link>
-          <Link href="#vault" className="hover:text-white transition-colors">Bóveda Digital</Link>
+        <div 
+          className="hidden md:flex items-center gap-10 font-bold text-[11px] uppercase tracking-[0.2em]"
+          style={{ color: "var(--text-muted)" }}
+        >
+          <Link href="/" className="hover:text-blue-500 transition-colors">Inicio</Link>
+          <Link href="/dashboard" className="hover:text-blue-500 transition-colors">Dashboard</Link>
+          <Link href="/register-doctor" className="hover:text-blue-500 transition-colors">Soy Médico</Link>
         </div>
 
-        <ConnectKitButton.Custom>
-          {({ isConnected, isConnecting, show, truncatedAddress, ensName }) => {
-            return (
-              <motion.button
-                whileHover={{ scale: 1.05, boxShadow: isConnected ? "none" : "0 0 20px rgba(0, 71, 171, 0.4)" }}
-                whileTap={{ scale: 0.95 }}
+        <div className="flex items-center gap-6">
+          <ThemeToggle />
+          <ConnectKitButton.Custom>
+            {({ isConnected, show, truncatedAddress, ensName }) => (
+              <button
                 onClick={show}
-                className={`${
-                  isConnected 
-                    ? "bg-white/5 border border-white/10 text-white" 
-                    : "bg-cobalt text-white"
-                } px-6 py-2.5 rounded-xl font-bold text-sm transition-all`}
+                className="px-8 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest shadow-lg hover:scale-105 transition-all active:scale-95"
+                style={{ backgroundColor: "var(--btn-bg)", color: "var(--btn-text)" }}
               >
                 {isConnected ? ensName ?? truncatedAddress : "Conectar Wallet"}
-              </motion.button>
-            );
-          }}
-        </ConnectKitButton.Custom>
+              </button>
+            )}
+          </ConnectKitButton.Custom>
+        </div>
       </div>
-
-
     </nav>
   );
 }
