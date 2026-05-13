@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@iden3/js-iden3-auth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   // Configuración del Verificador (SANA)
   const hostUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
