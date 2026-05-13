@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --background: #020617;
+  --foreground: #f8fafc;
+  --cobalt: #0047AB;
+  --cobalt-light: #3b82f6;
+  --neon-green: #39FF14;
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --accent-glow: radial-gradient(circle at center, var(--cobalt) 0%, transparent 70%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-light: var(--cobalt-light);
+  --color-neon-green: var(--neon-green);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 71, 171, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(57, 255, 20, 0.05) 0px, transparent 50%);
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.neon-glow {
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+}
+
+.cobalt-glow {
+  box-shadow: 0 0 30px rgba(0, 71, 171, 0.4);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
